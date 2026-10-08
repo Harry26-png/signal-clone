@@ -1,0 +1,137 @@
+/* Design tokens modelled on Signal Desktop (ultramarine accent, neutral greys, Inter). */
+:root,
+:root[data-theme="light"] {
+  --accent: #2c6bed;
+  --accent-hover: #1851b4;
+  --accent-soft: rgba(44, 107, 237, 0.12);
+  --danger: #d92d20;
+  --online: #4caf50;
+
+  --bg-app: #ffffff;
+  --bg-nav: #f6f6f6;
+  --bg-pane: #ffffff;
+  --bg-chat: #ffffff;
+  --bg-elevated: #ffffff;
+  --bg-input: #f0f0f0;
+  --bg-hover: #f2f2f2;
+  --bg-selected: #e2e2e2;
+  --bg-nav-active: #e2e2e2;
+  --border: #e9e9e9;
+  --border-strong: #dedede;
+
+  --text: #1b1b1b;
+  --text-secondary: #5e5e5e;
+  --text-tertiary: #848484;
+  --text-on-accent: #ffffff;
+
+  --bubble-in: #e9e9e9;
+  --bubble-in-text: #1b1b1b;
+  --bubble-in-meta: #5e5e5e;
+  --bubble-out: var(--accent);
+  --bubble-out-text: #ffffff;
+  --bubble-out-meta: rgba(255, 255, 255, 0.8);
+  --quote-in: rgba(255, 255, 255, 0.6);
+  --quote-out: rgba(255, 255, 255, 0.25);
+
+  --toast-bg: #2e2e2e;
+  --toast-text: #ffffff;
+  --overlay: rgba(0, 0, 0, 0.4);
+  --shadow-popover: 0 4px 24px rgba(0, 0, 0, 0.16), 0 0 1px rgba(0, 0, 0, 0.2);
+
+  color-scheme: light;
+}
+
+:root[data-theme="dark"] {
+  --accent-soft: rgba(44, 107, 237, 0.24);
+  --danger: #ff6159;
+
+  --bg-app: #121212;
+  --bg-nav: #1b1b1b;
+  --bg-pane: #1b1b1b;
+  --bg-chat: #121212;
+  --bg-elevated: #2e2e2e;
+  --bg-input: #2e2e2e;
+  --bg-hover: #262626;
+  --bg-selected: #3b3b3b;
+  --bg-nav-active: #3b3b3b;
+  --border: #2e2e2e;
+  --border-strong: #3b3b3b;
+
+  --text: #e9e9e9;
+  --text-secondary: #b9b9b9;
+  --text-tertiary: #848484;
+
+  --bubble-in: #3b3b3b;
+  --bubble-in-text: #e9e9e9;
+  --bubble-in-meta: #b9b9b9;
+  --quote-in: rgba(0, 0, 0, 0.25);
+
+  --toast-bg: #e9e9e9;
+  --toast-text: #1b1b1b;
+  --overlay: rgba(0, 0, 0, 0.6);
+  --shadow-popover: 0 4px 24px rgba(0, 0, 0, 0.5), 0 0 1px rgba(255, 255, 255, 0.2);
+
+  color-scheme: dark;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: var(--bg-app);
+  color: var(--text);
+  font-family: var(--font-inter), -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-font-smoothing: antialiased;
+  overflow: hidden;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: default;
+}
+
+input,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Slim scrollbars, like Signal Desktop. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}

@@ -1,0 +1,163 @@
+.app {
+  display: flex;
+  height: 100dvh;
+  background: var(--bg-app);
+}
+
+/* ---------- Nav rail (Chats / Calls / Stories, settings + profile at the bottom) ---------- */
+.nav {
+  width: 64px;
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 12px 0;
+  background: var(--bg-nav);
+  border-right: 1px solid var(--border);
+}
+.navSpacer {
+  flex: 1;
+}
+.navItem {
+  position: relative;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-secondary);
+}
+.navItem:hover {
+  background: var(--bg-hover);
+  color: var(--text);
+}
+.navItem[aria-current="page"] {
+  background: var(--bg-nav-active);
+  color: var(--text);
+}
+.navLabel {
+  display: none;
+}
+.navBadge {
+  position: absolute;
+  top: 4px;
+  right: 2px;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 9px;
+  background: var(--accent);
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 18px;
+  text-align: center;
+}
+
+/* ---------- Panes ---------- */
+.leftPane {
+  width: 340px;
+  flex: none;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-pane);
+  border-right: 1px solid var(--border);
+}
+.mainPane {
+  flex: 1;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-chat);
+}
+
+.welcome {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: var(--text-secondary);
+  text-align: center;
+  padding: 32px;
+}
+.welcome img {
+  width: 96px;
+  height: 96px;
+  margin-bottom: 8px;
+}
+.welcome h2 {
+  margin: 0;
+  color: var(--text);
+  font-size: 22px;
+  line-height: 28px;
+  font-weight: 600;
+}
+.welcome p {
+  margin: 0;
+  max-width: 360px;
+}
+.welcomeFooter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 24px;
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .leftPane {
+    width: 300px;
+  }
+}
+
+/* Mobile: one pane at a time, nav becomes a bottom tab bar. */
+@media (max-width: 720px) {
+  .app {
+    flex-direction: column;
+  }
+  .nav {
+    order: 2;
+    width: 100%;
+    height: 64px;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 4px 8px;
+    border-right: none;
+    border-top: 1px solid var(--border);
+  }
+  .navSpacer,
+  .navProfile {
+    display: none;
+  }
+  .navItem {
+    width: 64px;
+    height: 52px;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .navLabel {
+    display: block;
+    font-size: 11px;
+    line-height: 13px;
+  }
+  .leftPane {
+    width: 100%;
+    flex: 1;
+    border-right: none;
+  }
+  .app[data-mobile="main"] .nav,
+  .app[data-mobile="main"] .leftPane {
+    display: none;
+  }
+  .app[data-mobile="list"] .mainPane {
+    display: none;
+  }
+}
