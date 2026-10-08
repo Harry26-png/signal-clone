@@ -58,7 +58,8 @@ export function Composer({ conversationId }: { conversationId: number }) {
   const typing = useTypingSignal(conversationId);
 
   useEffect(() => {
-    textarea.current?.focus();
+    // On touch devices focusing would pop up the on-screen keyboard on every chat open.
+    if (replyTo || !window.matchMedia("(pointer: coarse)").matches) textarea.current?.focus();
   }, [conversationId, replyTo]);
 
   // Auto-grow the textarea up to its CSS max-height.

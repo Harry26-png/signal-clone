@@ -32,8 +32,16 @@ export function useLeaveGroup(conversation: Conversation | undefined) {
       danger: true,
       onConfirm: () =>
         withToast(async () => {
-          await api.conversations.removeMember(id, meId);
-          useChatStore.getState().removeConversation(id);
+          const chat = useChatStore.getState();
+          // Remove optimistically: this also stops the server's "conversation.removed" echo from
+          // showing a second "you are no longer a member" notice.
+          chat.removeConversation(id);
+          try {
+            await api.conversations.removeMember(id, meId);
+          } catch (error) {
+            void chat.refreshConversation(id);
+            throw error;
+          }
         }, `You left “${title}”`),
     });
   }, [id, title, meId, openModal]);

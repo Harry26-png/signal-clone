@@ -201,6 +201,8 @@ export function ConversationDetails({ id }: { id: number }) {
               className={styles.quickAction}
               onClick={() => {
                 setShowDetails(false);
+                // On phones the list (and its search box) is hidden behind the open chat.
+                if (window.matchMedia("(max-width: 720px)").matches) useChatStore.getState().setActive(null);
                 useUIStore.getState().focusSearch();
               }}
             >

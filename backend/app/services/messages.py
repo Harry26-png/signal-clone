@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from typing import Any
 
 from sqlalchemy import ColumnElement, delete, func, or_, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from ..database import utcnow
@@ -134,7 +135,17 @@ def create_message(db: Session, sender_id: int, conversation_id: int, data: Mess
     ]
     db.add(message)
     conversation.last_activity_at = now
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # A concurrent retry with the same client_id was stored first (UNIQUE sender_id, client_id).
+        db.rollback()
+        existing = db.scalar(
+            select(Message.id).where(Message.sender_id == sender_id, Message.client_id == data.client_id)
+        )
+        if existing is None:
+            raise
+        return load_messages(db, [existing])[0]
     return load_messages(db, [message.id])[0]
 
 

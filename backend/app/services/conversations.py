@@ -3,6 +3,7 @@
 import random
 
 from sqlalchemy import func, select
+from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session, selectinload
 
 from ..database import utcnow
@@ -128,7 +129,12 @@ def get_or_create_direct(db: Session, user_id: int, other_id: int) -> tuple[int,
         ConversationMember(user_id=other_id, role="member"),
     ]
     db.add(conversation)
-    db.commit()
+    try:
+        db.commit()
+    except IntegrityError:
+        # Both users opened the chat at the same moment; the UNIQUE direct_key let only one insert win.
+        db.rollback()
+        return db.scalar(select(Conversation.id).where(Conversation.direct_key == key)), []
     return conversation.id, [updated_delivery([user_id, other_id], conversation.id)]
 
 

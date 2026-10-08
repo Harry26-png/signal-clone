@@ -16,6 +16,27 @@ import styles from "./chat.module.css";
 
 export const REACTION_EMOJI = ["❤️", "👍", "👎", "😂", "😮", "😢"];
 
+// The trailing class keeps sentence punctuation ("see https://x.com.") out of the link.
+const URL_RE = /(https?:\/\/[^\s<]+[^\s<.,;:!?)\]'"])/g;
+
+/** Renders URLs as links, like Signal. React escapes the text, so this is safe from injection. */
+function Linkified({ text }: { text: string }) {
+  // split() with a capturing group puts the matched URLs at the odd indexes.
+  return (
+    <>
+      {text.split(URL_RE).map((part, i) =>
+        i % 2 === 1 ? (
+          <a key={i} className={styles.link} href={part} target="_blank" rel="noopener noreferrer">
+            {part}
+          </a>
+        ) : (
+          part
+        ),
+      )}
+    </>
+  );
+}
+
 /** Short all-emoji messages render large, as in Signal. */
 const BIG_EMOJI = /^(\p{Extended_Pictographic}|\p{Emoji_Component}|‍|️|\s){1,8}$/u;
 const isBigEmoji = (text: string) => text.length <= 16 && BIG_EMOJI.test(text) && !/^[\d\s#*]+$/.test(text);
@@ -238,7 +259,11 @@ export const MessageBubble = memo(function MessageBubble({
                 </span>
               </a>
             ))}
-          {message.body && <span className={`${styles.text} ${bigEmoji ? styles.bigEmoji : ""}`}>{message.body}</span>}
+          {message.body && (
+            <span className={`${styles.text} ${bigEmoji ? styles.bigEmoji : ""}`}>
+              <Linkified text={message.body} />
+            </span>
+          )}
           {meta}
           <span className={styles.clear} />
         </div>

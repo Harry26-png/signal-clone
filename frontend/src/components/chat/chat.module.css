@@ -263,6 +263,10 @@
   display: block;
   padding: 6px 12px 0;
 }
+.link {
+  color: inherit;
+  text-decoration: underline;
+}
 .bigEmoji {
   font-size: 36px;
   line-height: 44px;
