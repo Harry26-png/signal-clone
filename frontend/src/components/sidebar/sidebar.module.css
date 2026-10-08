@@ -35,10 +35,15 @@
 
 /* ---------- Search ---------- */
 .searchWrap {
-  padding: 0 16px 8px;
+  padding: 0 12px 8px 16px;
   flex: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 .search {
+  flex: 1;
+  min-width: 0;
   height: 32px;
   display: flex;
   align-items: center;
@@ -76,9 +81,30 @@
 .searchButton:hover {
   background: var(--bg-hover);
 }
-.searchButton[aria-pressed="true"] {
+.filterButton {
+  width: 32px;
+  height: 32px;
+  flex: none;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text);
+}
+.filterButton:hover {
+  background: var(--bg-hover);
+}
+.filterButton[aria-pressed="true"] {
   background: var(--accent);
   color: #fff;
+}
+.emptyTitle {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  color: var(--text);
 }
 .filterBanner {
   display: flex;

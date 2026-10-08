@@ -91,6 +91,17 @@ export function ModalHost() {
       return <ConfirmModal {...modal} onClose={close} />;
     case "shortcuts":
       return <ShortcutsModal onClose={close} />;
+    case "whatsNew":
+      return (
+        <Modal title="What's new" onClose={close} footer={<Button onClick={close}>OK</Button>}>
+          <ul className={styles.text}>
+            <li>Reply to a message by hovering it and choosing Reply.</li>
+            <li>React with emoji, or attach photos and files with the + button.</li>
+            <li>Set disappearing messages from a chat's ⋯ menu.</li>
+            <li>Press Ctrl + / to see every keyboard shortcut.</li>
+          </ul>
+        </Modal>
+      );
     case "comingSoon":
       return (
         <Modal title={modal.feature} onClose={close} footer={<Button onClick={close}>OK</Button>}>

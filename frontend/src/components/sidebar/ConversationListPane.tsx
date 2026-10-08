@@ -158,7 +158,8 @@ export function ConversationListPane() {
             ))}
             {loaded && list.length === 0 && (
               <p className={styles.emptyList}>
-                {unreadOnly ? "No unread chats" : "No chats yet. Tap the compose button to start one."}
+                <span className={styles.emptyTitle}>{unreadOnly ? "No unread chats" : "No chats"}</span>
+                {unreadOnly ? "Chats with unread messages will appear here." : "Recent chats will appear here."}
               </p>
             )}
           </>

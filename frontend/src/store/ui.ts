@@ -21,6 +21,7 @@ export type SettingsSection =
 
 export type Modal =
   | { type: "shortcuts" }
+  | { type: "whatsNew" }
   | { type: "comingSoon"; feature: string }
   | { type: "safetyNumber"; conversationId: number }
   | { type: "disappearing"; conversationId: number }
@@ -66,6 +67,8 @@ interface UIState {
   /** Mobile only: a settings section is open full-screen (vs. the section list). */
   settingsSectionOpen: boolean;
   showDetails: boolean;
+  /** Desktop: the nav rail is hidden via its ☰ toggle, as in Signal Desktop. */
+  navCollapsed: boolean;
   modal: Modal | null;
   toasts: Toast[];
   search: string;
@@ -79,6 +82,7 @@ interface UIState {
   setSettingsSection: (section: SettingsSection) => void;
   closeSettingsSection: () => void;
   setShowDetails: (show: boolean) => void;
+  toggleNav: () => void;
   openModal: (modal: Modal) => void;
   closeModal: () => void;
   toast: (text: string) => void;
@@ -101,6 +105,7 @@ export const useUIStore = create<UIState>((set, get) => ({
   settingsSection: "profile",
   settingsSectionOpen: false,
   showDetails: false,
+  navCollapsed: false,
   modal: null,
   toasts: [],
   search: "",
@@ -114,6 +119,7 @@ export const useUIStore = create<UIState>((set, get) => ({
   setSettingsSection: (settingsSection) => set({ settingsSection, tab: "settings", settingsSectionOpen: true }),
   closeSettingsSection: () => set({ settingsSectionOpen: false }),
   setShowDetails: (showDetails) => set({ showDetails }),
+  toggleNav: () => set((s) => ({ navCollapsed: !s.navCollapsed })),
   openModal: (modal) => set({ modal }),
   closeModal: () => set({ modal: null }),
 

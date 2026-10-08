@@ -40,6 +40,20 @@
 .navLabel {
   display: none;
 }
+.navToggle {
+  margin-bottom: 4px;
+}
+.navExpand {
+  width: 36px;
+  height: 36px;
+  margin-left: -6px;
+  flex: none;
+}
+@media (min-width: 721px) {
+  .app[data-nav="collapsed"] .nav {
+    display: none;
+  }
+}
 .navBadge {
   position: absolute;
   top: 4px;
@@ -86,10 +100,15 @@
   text-align: center;
   padding: 32px;
 }
-.welcome img {
-  width: 96px;
-  height: 96px;
+.welcomeLogo {
+  color: var(--text);
   margin-bottom: 8px;
+}
+.welcomeLink {
+  color: var(--accent);
+}
+.welcomeLink:hover {
+  text-decoration: underline;
 }
 .welcome h2 {
   margin: 0;
@@ -134,7 +153,8 @@
     border-top: 1px solid var(--border);
   }
   .navSpacer,
-  .navProfile {
+  .navToggle,
+  .navExpand {
     display: none;
   }
   .navItem {

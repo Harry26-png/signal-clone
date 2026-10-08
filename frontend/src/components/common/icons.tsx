@@ -32,12 +32,27 @@ export const ChatsIcon = icon(
 export const PhoneIcon = icon(
   <path d="M8.2 3.75H5.6c-1 0-1.85.8-1.85 1.82C3.75 13.4 10.6 20.25 18.43 20.25c1.02 0 1.82-.84 1.82-1.85v-2.6c0-.6-.38-1.12-.95-1.3l-2.9-.95c-.5-.16-1.05-.03-1.42.34l-1.4 1.4a12.6 12.6 0 0 1-4.9-4.9l1.4-1.4c.37-.37.5-.92.34-1.42l-.95-2.9a1.37 1.37 0 0 0-1.3-.95z" />,
 );
-export const StoriesIcon = icon(
-  <>
-    <path d="M12 3.25a8.75 8.75 0 0 1 0 17.5" />
-    <path d="M12 20.75a8.75 8.75 0 0 1-6.19-14.94" strokeDasharray="2 2.6" />
-    <circle cx="12" cy="12" r="4.75" />
-  </>,
+// A story card with a bracket behind it, as in Signal's Stories tab.
+export const StoriesIcon = (props: IconProps) => (
+  <Svg {...props}>
+    <rect x="8.25" y="3.75" width="11.5" height="16.5" rx="2.75" />
+    <path d="M5.25 5.75c-.95.45-1.5 1.35-1.5 2.4v7.7c0 1.05.55 1.95 1.5 2.4" fill="none" />
+  </Svg>
+);
+export const MenuIcon = icon(<path d="M4.5 7h15M4.5 12h15M4.5 17h15" />);
+/** Signal-style logo mark: a speech bubble inside a dashed ring. */
+export const LogoMarkIcon = (props: IconProps) => (
+  <Svg {...props} strokeWidth={1.1}>
+    <path
+      d="M12 2.6a9.4 9.4 0 0 1 0 18.8c-1.7 0-3.3-.45-4.7-1.25L3 21l.85-4.3A9.4 9.4 0 0 1 12 2.6z"
+      strokeDasharray="2.1 1.3"
+    />
+    <path
+      d="M12 4.4a7.6 7.6 0 0 1 0 15.2c-1.45 0-2.8-.4-3.95-1.1l-2.95.7.65-2.85A7.6 7.6 0 0 1 12 4.4z"
+      fill="currentColor"
+      stroke="none"
+    />
+  </Svg>
 );
 export const SettingsIcon = icon(
   <>

@@ -1,65 +1,70 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { UserAvatar } from "@/components/common/Avatar";
-import { ChatsIcon, PhoneIcon, SettingsIcon, StoriesIcon } from "@/components/common/icons";
+import { ChatsIcon, MenuIcon, PhoneIcon, SettingsIcon, StoriesIcon } from "@/components/common/icons";
 import { useChatStore } from "@/store/chat";
-import { useSessionStore } from "@/store/session";
 import { type NavTab, useUIStore } from "@/store/ui";
 import styles from "./layout.module.css";
 
 function NavItem({
   tab,
   label,
-  icon,
+  renderIcon,
   badge,
-  className,
 }: {
   tab: NavTab;
   label: string;
-  icon: ReactNode;
+  /** Signal fills the icon of the active tab. */
+  renderIcon: (active: boolean) => ReactNode;
   badge?: number;
-  className?: string;
 }) {
   const active = useUIStore((s) => s.tab === tab);
   const setTab = useUIStore((s) => s.setTab);
   return (
     <button
-      className={`${styles.navItem} ${className ?? ""}`}
+      className={styles.navItem}
       aria-current={active ? "page" : undefined}
       aria-label={label}
       title={label}
       onClick={() => setTab(tab)}
     >
-      {icon}
+      {renderIcon(active)}
       <span className={styles.navLabel}>{label}</span>
       {!!badge && <span className={styles.navBadge}>{badge > 99 ? "99+" : badge}</span>}
     </button>
   );
 }
 
+const fillWhen = (active: boolean) => (active ? "currentColor" : "none");
+
 export function NavRail() {
-  const me = useSessionStore((s) => s.me);
   const unread = useChatStore((s) =>
     Object.values(s.conversations).reduce((sum, c) => sum + c.unread_count, 0),
   );
-  const openProfile = useUIStore((s) => s.setSettingsSection);
+  const toggleNav = useUIStore((s) => s.toggleNav);
 
   return (
     <nav className={styles.nav} aria-label="Main">
-      <NavItem tab="chats" label="Chats" icon={<ChatsIcon size={22} />} badge={unread} />
-      <NavItem tab="calls" label="Calls" icon={<PhoneIcon size={22} />} />
-      <NavItem tab="stories" label="Stories" icon={<StoriesIcon size={22} />} />
-      <div className={styles.navSpacer} />
-      <NavItem tab="settings" label="Settings" icon={<SettingsIcon size={22} />} />
-      <button
-        className={`${styles.navItem} ${styles.navProfile}`}
-        aria-label="Profile"
-        title="Profile"
-        onClick={() => openProfile("profile")}
-      >
-        <UserAvatar user={me ?? undefined} size={28} />
+      <button className={`${styles.navItem} ${styles.navToggle}`} aria-label="Close navigation" title="Close navigation" onClick={toggleNav}>
+        <MenuIcon size={22} />
       </button>
+      <NavItem tab="chats" label="Chats" badge={unread} renderIcon={(a) => <ChatsIcon size={22} fill={fillWhen(a)} />} />
+      <NavItem tab="calls" label="Calls" renderIcon={(a) => <PhoneIcon size={22} fill={fillWhen(a)} />} />
+      <NavItem tab="stories" label="Stories" renderIcon={(a) => <StoriesIcon size={22} fill={fillWhen(a)} />} />
+      <div className={styles.navSpacer} />
+      <NavItem tab="settings" label="Settings" renderIcon={() => <SettingsIcon size={22} />} />
     </nav>
+  );
+}
+
+/** Shown in pane headers while the nav rail is collapsed, to bring it back. */
+export function NavExpandButton() {
+  const collapsed = useUIStore((s) => s.navCollapsed);
+  const toggleNav = useUIStore((s) => s.toggleNav);
+  if (!collapsed) return null;
+  return (
+    <button className={`${styles.navItem} ${styles.navExpand}`} aria-label="Open navigation" title="Open navigation" onClick={toggleNav}>
+      <MenuIcon size={22} />
+    </button>
   );
 }

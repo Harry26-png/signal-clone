@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { ChatPane } from "@/components/chat/ChatPane";
 import { EmptyState } from "@/components/common/EmptyState";
-import { LockIcon, PhoneIcon, StoriesIcon } from "@/components/common/icons";
+import { LockIcon, LogoMarkIcon, PhoneIcon, StoriesIcon } from "@/components/common/icons";
 import { ConversationDetails } from "@/components/details/ConversationDetails";
 import { ModalHost } from "@/components/modals/ModalHost";
 import { SettingsNav } from "@/components/settings/SettingsNav";
@@ -19,13 +19,20 @@ import styles from "./layout.module.css";
 import { NavRail } from "./NavRail";
 
 function Welcome() {
+  const openModal = useUIStore((s) => s.openModal);
   return (
     <div className={styles.welcome}>
-      <img src="/icon.svg" alt="" />
+      <LogoMarkIcon size={128} className={styles.welcomeLogo} />
       <h2>Welcome to Signal</h2>
-      <p>Select a chat on the left, or start a new one with the compose button.</p>
+      <p>
+        See{" "}
+        <button className={styles.welcomeLink} onClick={() => openModal({ type: "whatsNew" })}>
+          what&apos;s new
+        </button>{" "}
+        in this update
+      </p>
       <div className={styles.welcomeFooter}>
-        <LockIcon size={14} /> Your messages are end-to-end encrypted (simulated)
+        <LockIcon size={14} /> Signal clone · end-to-end encryption is simulated
       </div>
     </div>
   );
@@ -57,6 +64,7 @@ export function Messenger() {
   const tab = useUIStore((s) => s.tab);
   const showDetails = useUIStore((s) => s.showDetails);
   const settingsSectionOpen = useUIStore((s) => s.settingsSectionOpen);
+  const navCollapsed = useUIStore((s) => s.navCollapsed);
   const activeId = useChatStore((s) => s.activeId);
 
   useRealtime();
@@ -75,7 +83,11 @@ export function Messenger() {
     (tab === "chats" && activeId !== null) || (tab === "settings" && settingsSectionOpen);
 
   return (
-    <div className={styles.app} data-mobile={mobileShowsMain ? "main" : "list"}>
+    <div
+      className={styles.app}
+      data-mobile={mobileShowsMain ? "main" : "list"}
+      data-nav={navCollapsed ? "collapsed" : "open"}
+    >
       <NavRail />
       <aside className={styles.leftPane}>
         {tab === "chats" && <ChatsPane />}

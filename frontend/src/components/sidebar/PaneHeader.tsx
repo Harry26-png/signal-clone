@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { IconButton } from "@/components/common/Button";
 import { BackIcon } from "@/components/common/icons";
+import { NavExpandButton } from "@/components/layout/NavRail";
 import styles from "./sidebar.module.css";
 
 export function PaneHeader({
@@ -14,10 +15,12 @@ export function PaneHeader({
 }) {
   return (
     <header className={`${styles.header} ${onBack ? styles.headerBack : ""}`}>
-      {onBack && (
+      {onBack ? (
         <IconButton label="Back" onClick={onBack}>
           <BackIcon />
         </IconButton>
+      ) : (
+        <NavExpandButton />
       )}
       <h1 className={styles.headerTitle}>{title}</h1>
       {actions}

@@ -41,18 +41,19 @@ export const SearchBox = forwardRef<HTMLInputElement, SearchBoxProps>(function S
             <CloseIcon size={14} />
           </button>
         )}
-        {onToggleFilter && (
-          <button
-            className={styles.searchButton}
-            onClick={onToggleFilter}
-            aria-pressed={!!filterActive}
-            aria-label="Filter by unread"
-            title="Filter by unread"
-          >
-            <FilterIcon size={16} />
-          </button>
-        )}
       </div>
+      {/* Signal places the unread filter beside the search field, not inside it. */}
+      {onToggleFilter && (
+        <button
+          className={styles.filterButton}
+          onClick={onToggleFilter}
+          aria-pressed={!!filterActive}
+          aria-label="Filter by unread"
+          title="Filter by unread"
+        >
+          <FilterIcon size={20} />
+        </button>
+      )}
     </div>
   );
 });
