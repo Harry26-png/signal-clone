@@ -6,7 +6,7 @@ import { MessageStatusIcon } from "@/components/common/MessageStatusIcon";
 import { CopyIcon, EmojiIcon, FileIcon, MoreIcon, ReplyIcon, TimerIcon } from "@/components/common/icons";
 import { Menu } from "@/components/common/Menu";
 import { api, assetUrl } from "@/lib/api";
-import { senderNameColor } from "@/lib/avatar";
+import { senderNameColorVars } from "@/lib/avatar";
 import { attachmentLabel, displayName } from "@/lib/conversation";
 import { formatFileSize, formatMessageTime } from "@/lib/format";
 import type { Message, ReplyPreview, User } from "@/lib/types";
@@ -209,7 +209,10 @@ export const MessageBubble = memo(function MessageBubble({
             .join(" ")}
         >
           {showSenderName && (
-            <span className={styles.senderName} style={{ color: senderNameColor(sender?.avatar_color ?? "A200") }}>
+            <span
+              className={styles.senderName}
+              style={senderNameColorVars(sender?.avatar_color ?? "A200") as React.CSSProperties}
+            >
               {displayName(sender)}
             </span>
           )}

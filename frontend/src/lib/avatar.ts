@@ -27,7 +27,11 @@ export function initials(name: string): string {
   return letters.toUpperCase();
 }
 
-/** Colour used for a sender's name in group chats (the foreground of their avatar colour). */
-export function senderNameColor(key: string): string {
-  return avatarColors(key).fg;
+/**
+ * Sender-name colours for group chats as CSS custom properties: the saturated avatar foreground in
+ * light mode and the pale avatar tint in dark mode (where the saturated tones are unreadable).
+ */
+export function senderNameColorVars(key: string): Record<string, string> {
+  const { fg, bg } = avatarColors(key);
+  return { "--name-light": fg, "--name-dark": bg };
 }

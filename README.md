@@ -16,6 +16,20 @@ A full-stack clone of the Signal messenger built for the Scaler SDE Fullstack as
 
 ---
 
+## Screenshots
+
+| 1:1 chat: replies, reactions, read ticks, typing | Group chat: sender names, quotes, unread divider |
+|---|---|
+| ![1:1 chat](docs/screenshots/chat.png) | ![Group chat](docs/screenshots/group.png) |
+| **Group settings: members & admin controls** | **Dark mode** |
+| ![Group settings](docs/screenshots/group-settings.png) | ![Dark mode](docs/screenshots/dark.png) |
+
+| Mobile: chat list | Mobile: chat | Login |
+|---|---|---|
+| <img src="docs/screenshots/mobile-list.png" width="260" alt="Mobile chat list"> | <img src="docs/screenshots/mobile-chat.png" width="260" alt="Mobile chat"> | <img src="docs/screenshots/login.png" width="420" alt="Login"> |
+
+---
+
 ## Quick start
 
 ### Prerequisites
