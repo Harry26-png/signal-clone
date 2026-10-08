@@ -254,6 +254,35 @@
   animation: spin 800ms linear infinite;
 }
 
+.serverBanner {
+  position: fixed;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 80;
+  max-width: calc(100vw - 32px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  background: var(--toast-bg);
+  color: var(--toast-text);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  font-size: 13px;
+  line-height: 18px;
+  animation: toastIn 180ms ease-out;
+}
+.spinnerSmall {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  border: 2px solid rgba(127, 127, 127, 0.4);
+  border-top-color: currentColor;
+  animation: spin 800ms linear infinite;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);

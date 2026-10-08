@@ -3,7 +3,7 @@
 **Live demo:** https://signal-clone-beta.vercel.app — sign in with any demo account (code `123456`)
 **API:** https://signal-clone-api-0ibc.onrender.com ([docs](https://signal-clone-api-0ibc.onrender.com/docs))
 
-> The API runs on Render's free tier, which sleeps when idle. The first request can take 30–60 seconds to wake it.
+> The API runs on Render's free tier, which sleeps when idle. A GitHub Actions job (`.github/workflows/keep-alive.yml`) pings it every 5 minutes to keep it warm. If it was asleep anyway, the site shows a "Waking up the server" notice, and the first request can take 30–60 seconds.
 
 A full-stack clone of the Signal messenger built for the Scaler SDE Fullstack assignment. It covers mocked phone registration, contacts, 1:1 and group chats, real-time delivery over WebSockets, Signal-style sent/delivered/read ticks, typing indicators, presence, and admin controls for groups. The UI follows Signal Desktop's layout and look, with light and dark themes.
 
